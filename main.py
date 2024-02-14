@@ -33,6 +33,12 @@ def std_print(msg:str):
         sys.stdout.write(msg)
         sys.stdout.flush()
 
+def highlight_str(msg:str)-> str:
+    msg = msg.upper()
+    msg = '\033[1m' + msg + '\033[10'
+    return(msg)
+
+
 cls()
 print("Psalm 16")
 while(index < len(words)):
@@ -56,6 +62,6 @@ while(index < len(words)):
             std_print(word+delimiter)
         # Incorrect displays as bold and uppercase
         else:
-            std_print('\033[1m' + word.upper() + delimiter + '\033[0m')
+            std_print(highlight_str(word+delimiter))
 
         index += 1
