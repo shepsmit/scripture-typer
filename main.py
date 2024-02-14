@@ -1,4 +1,5 @@
-from readchar import readkey, key
+import sys
+import msvcrt
 
 v = """Keep me safe, my God, for in you I take refuge.
 I say to the LORD, “You are my Lord; apart from you I have no good thing.”
@@ -18,17 +19,31 @@ words = v.split()
 
 index = 0
 
+def first_letter_matches(a:str, b:str):
+    return (a[0].lower() == b[0].lower())
+
+def std_print(msg:str):
+        sys.stdout.write(msg)
+        sys.stdout.flush()
+
 while(index < len(words)):
-    k = readkey().lower()
-    
-    if(k == key.DOWN):
+    k_bytes = msvcrt.getch()
+    k_str = str(k_bytes, encoding='utf-8')
+
+    if(k_str == "0"):
         index = len(words)+1
-
-    word = words[index]
-
-    if(k.lower() == word[0].lower()):
-        print(word, end=" ")
+    
     else:
-        print(word+"*", end=" ")
+        word = words[index]
+        if("." in word):
+            delimiter = "\n"
+        else:
+            delimiter = " "
 
-    index += 1
+        if(first_letter_matches(k_str,word)):
+            std_print(word+delimiter)
+
+        else:
+            std_print(word+"*"+delimiter)
+
+        index += 1
